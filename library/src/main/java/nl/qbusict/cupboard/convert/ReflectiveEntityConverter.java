@@ -30,6 +30,7 @@ import java.util.List;
 
 import nl.qbusict.cupboard.*;
 import nl.qbusict.cupboard.annotation.Ignore;
+import nl.qbusict.cupboard.annotation.Table;
 
 /**
  * The default {@link nl.qbusict.cupboard.convert.EntityConverter}
@@ -268,6 +269,14 @@ public class ReflectiveEntityConverter<T> implements EntityConverter<T> {
 
     @Override
     public String getTable() {
+		if (mUseAnnotations)
+		{
+			Table table = mClass.getAnnotation(Table.class);
+			if (table != null)
+			{
+				return table.name();
+			}
+		}
         return getTable(mClass);
     }
 
